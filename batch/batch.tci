@@ -1,0 +1,12 @@
+COMMAND OBJECT dual_sub_po get_currents ( source : sequence(ref(dual_feed_02)))  &
+dual_po_sub 
+COMMAND OBJECT dual_main_po get_currents ( source : sequence(ref(dual_sub_po)))  &
+dual_po_main 
+COMMAND OBJECT spherical_grid get_field ( source : sequence(ref(dual_main_po)))  &
+dual_get_field 
+COMMAND OBJECT spherical_grid add_field ( source : sequence(ref(dual_feed_02),  &
+ref(dual_sub_po))) dual_add_field_feed 
+COMMAND OBJECT dual_cut get_field ( source : sequence(ref(dual_main_po))) cmd_1 
+COMMAND OBJECT dual_cut add_field ( source : sequence(ref(dual_feed_02),  &
+ref(dual_sub_po))) cmd_2 
+QUIT 

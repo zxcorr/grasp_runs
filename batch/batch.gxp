@@ -1,0 +1,19 @@
+[Comment]
+Project comment
+[TOR file]
+batch.tor
+[Auxiliary TOR files]
+[TCI file]
+batch.tci
+[Default units]
+GHz m S/m 1
+[Project setup]
+<!DOCTYPE Project>
+<Project version="10.3.0" application="GRASP">
+ <Results/>
+ <ResultWindows/>
+ <WizardData/>
+ <view_configuration>
+  <view pos="0x0" show_surfaces="yes" minimized="no" view_settings_dialog_splitter_state="" enable_psi_slider="no" translation="-44.01752545411189,-120.243534909697,-431.7008064289054" name="view_1" perspective_view="no" show_rulers="yes" enable_phi_slider="no" view_settings_dialog_state="AdnQywABAAAAAADmAAAAcwAABGcAAAMJAAAA8AAAAJMAAARdAAAC/wAAAAAAAA==" collapsed_view_settings_entries="" disabled_toolbars="" locked_phi_theta="no" rotation="1.470535117509904,1.967147473210508,0.1383909973665005" size="650x450" enable_theta_slider="no" visible="yes" maximized="no" orientation_type="0" show_wire_grid="yes"/>
+ </view_configuration>
+</Project>

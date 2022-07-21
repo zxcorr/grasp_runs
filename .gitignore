@@ -1,0 +1,8 @@
+# Ignore everything
+/**
+
+# but these:
+!/.gitignore
+!/batch/
+!/batch/*
+!grasp_final_run.py

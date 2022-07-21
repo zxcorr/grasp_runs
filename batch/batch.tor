@@ -1,0 +1,161 @@
+dual_main_reflector  reflector  
+(
+  coor_sys         : ref(dual_global_coor),
+  surface          : ref(dual_main_surface),
+  rim              : ref(dual_main_rim)
+)
+ 
+dual_global_coor  coor_sys  
+(
+)
+ 
+dual_main_surface  paraboloid  
+(
+  focal_length     : 140.0 m
+)
+ 
+dual_main_rim  elliptical_rim  
+(
+  centre           : struct(x: -226.541493021072 m, y: 0.0 m),
+  half_axis        : struct(x: 20.0 m, y: 20.0 m)
+)
+ 
+dual_sub_reflector  reflector  
+(
+  coor_sys         : ref(dual_sub_coor),
+  surface          : ref(dual_sub_surface),
+  rim              : ref(dual_sub_rim)
+)
+ 
+dual_sub_coor  coor_sys  
+(
+  origin           : struct(x: 0.0 m, y: 0.0 m, z: 140.0 m),
+  x_axis           : struct(x: 0.871557553071891E-01, y: 0.0, z: -0.996194696992929),
+  y_axis           : struct(x: 0.0, y: -1.0, z: 0.0),
+  base             : ref(dual_global_coor)
+)
+ 
+dual_sub_surface  hyperboloid  
+(
+  vertex_distance  : -148.235294117647 m,
+  foci_distance    : 252.0 m
+)
+ 
+dual_sub_rim  elliptical_rim  
+(
+  centre           : struct(x: 26.2883073820653 m, y: 0.0 m),
+  half_axis        : struct(x: 18.3404080531778 m, y: 17.7752910981323 m)
+)
+ 
+dual_feed  gaussian_beam_pattern  
+(
+  frequency        : ref(dual_frequencies),
+  coor_sys         : ref(dual_feed_coor_03),
+  taper_angle      : XXX1,
+  taper            : XXX1
+)
+ 
+dual_frequencies  frequency  
+(
+  frequency_list   : sequence(XXX.X MHz)
+)
+ 
+dual_feed_coor  coor_sys  
+(
+  origin           : struct(x: 0.0 m, y: 0.0 m, z: 252.0 m),
+  x_axis           : struct(x: 0.89315373386595, y: 0.0, z: 0.449751495474237),
+  y_axis           : struct(x: 0.0, y: -1.0, z: 0.0),
+  base             : ref(dual_sub_coor)
+)
+ 
+dual_cut  spherical_cut  
+(
+  coor_sys         : ref(dual_cut_coor),
+  theta_range      : struct(start: -4.0, end: 4.0, np: 151),
+  phi_range        : struct(start: 0.0, end: 90.0, np: 3),
+  file_name        : " ",
+  comment          : "Field data in cuts"
+)
+ 
+dual_cut_coor  coor_sys  
+(
+  origin           : struct(x: -226.541493021072 m, y: 0.0 m, z: 91.6447286789582 m),
+  base             : ref(dual_global_coor)
+)
+ 
+dual_main_po  po_single_face_scatterer  
+(
+  frequency        : ref(dual_frequencies),
+  scatterer        : ref(dual_main_reflector)
+)
+ 
+dual_sub_po  po_single_face_scatterer  
+(
+  frequency        : ref(dual_frequencies),
+  scatterer        : ref(dual_sub_reflector)
+)
+ 
+dual_feed_coor_02  coor_sys  
+(
+  origin           : struct(x: %%%% m, y: %%%% m, z: %%%% m),
+  x_axis           : struct(x: $$$$, y: $$$$, z: $$$$),
+  y_axis           : struct(x: &&&&, y: &&&&, z: &&&&),
+  base             : ref(dual_feed_coor)
+)
+ 
+dual_feed_02  gaussian_beam_pattern  
+(
+  frequency        : ref(dual_frequencies),
+  coor_sys         : ref(dual_feed_coor_02),
+  taper_angle      : XXX2,
+  taper            : XXX2,
+  polarisation     : XXX2
+)
+ 
+dual_feed_coor_03  coor_sys  
+(
+  base             : ref(dual_feed_coor)
+)
+ 
+spherical_grid  spherical_grid  
+(
+  coor_sys         : ref(dual_cut_coor),
+  x_range          : struct(start: -X.X, end: X.X, np: XXX),
+  y_range          : struct(start: -X.X, end: X.X, np: XXX),
+  file_name        : " "
+)
+ 
+//DO NOT MODIFY OBJECTS BELOW THIS LINE.
+//THESE OBJECTS ARE CREATED AND MANAGED BY THE
+//GRAPHICAL USER INTERFACE AND SHOULD NOT BE
+//MODIFIED MANUALLY!
+view_1  view  
+(
+  objects          : sequence(ref(view_1_reflector_plot),ref(view_1_coor_sys_plot),ref(view_1_feed_plot),
+ref(view_1_output_points_plot),ref(rays_from_point_sources))
+)
+ 
+view_1_reflector_plot  reflector_plot  
+(
+)
+ 
+view_1_coor_sys_plot  coor_sys_plot  
+(
+)
+ 
+view_1_feed_plot  feed_plot  
+(
+)
+ 
+view_1_output_points_plot  output_points_plot  
+(
+)
+ 
+rays_from_point_sources  rays_from_point_sources  
+(
+  objects          : sequence(ref(dual_feed_02)),
+  theta_range      : struct(start: -18.0, end: 18.0, np: 80),
+  phi_range        : struct(start: 0.0, end: 90.0, np: 2),
+  ray_path_range   : struct(start: 0.0 m, end: 150.0 m)
+)
+ 
