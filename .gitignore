@@ -5,4 +5,5 @@
 !/.gitignore
 !/batch/
 !/batch/*
+!all_horn_centers.csv
 !grasp_final_run.py

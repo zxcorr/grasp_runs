@@ -9,35 +9,34 @@ import sys
 
 
 ##############################################################
-##############################################################
 ####### INPUTS ###############################################
 ##############################################################
-##############################################################
+
 
 # Symmetric   -> Horn 3 [2]  (30,-304)
 # Elliptical  -> Horn 1 [0] (510,-304) 
 # Assymmetric -> Horn 28 [27] (-990,304)
 
-# Horn indices to be analysed:
+# Indices das cornetas a serem analisadas:
 horn_idxs = np.array([27])
 Polarisation = ["linear_x"] #["linear_x","linear_y"]
-Fs = np.linspace(0.98,1.26,101)[99:101] #np.array([0.98])
-Nps = [101]
+Fs = np.linspace(0.98,1.26,101) # Frequencias em GHz
+
+# Grid
+Nps = [101] # Lista com numero de pontos a serem analisados
 # The uv grid to be used will be uv_center+-d_uv, yielding a (2*d_uv)**2 grid:
 d_uv = 0.05
 
 jobNamePrefix ="Retangular"
+# Path para a pasta que contem o arquivo dentro do usuario no local:
+# GRASP-SE-XX.X.X/bin/grasp-analysis
 realpath = "/home/joao/TICRA/GRASP-SE-10.3.0/bin/grasp-analysis batch.gxp "
 
 
 
 ##############################################################
-##############################################################
 ####### FUNCOES ##############################################
 ##############################################################
-##############################################################
-
-
 
 
 def taper_angle(f):
@@ -49,7 +48,6 @@ def taper_angle(f):
 	'''
 	f = f*1000.
 	return-1.46802646e2 + 1.10877204e-1*f + -2.96922720e-5*f**2 + 9.04792596e4/f + -1.19053839/f**2
-
 
 
 def grd2txt(pathin,pathout,Np=922,index=None):
@@ -71,13 +69,14 @@ def grd2txt(pathin,pathout,Np=922,index=None):
 	return None
 
 
-##############################################################
+
 ##############################################################
 ####### DADOS ################################################
 ##############################################################
-##############################################################
 
-# As coordenadas devem ser dadas em termos de vetores
+
+# Coordenadas de cada uma das 28 cornetas
+# NÃO ALTERAR
 xOr=[  510.,   270.,    30.,  -210.,  -450.,  -690.,  -930.,
 	   390.,   150.,   -90.,  -330.,  -570.,  -810., -1050.,   
 	   330.,    90.,  -150.,  -390.,  -630.,  -870., -1110.,   
@@ -103,31 +102,34 @@ phi=[ 145.08422394,  137.52705889,   93.45181427,   49.74101367,   25.02017254, 
 	 -151.93686042, -109.06210874,  -59.04273369,  -25.06851156,  -12.07246355,   -6.73076401,  -22.53723228, 
 	 -149.32189682, -128.1790711 ,  -81.45041879,  -41.45407157,  -22.251526  ,  -19.64734512,  -11.18929411]
 
-
-
 xOr,yOr,zOr,theta,phi = map(np.array, (xOr,yOr,zOr,theta,phi))
 
 
+
 ################################################################
+#################### CALCULANDO PARAMETROS #####################
 ################################################################
 
 
+# Selecionando cornetas pelos indices
 xOr = xOr[horn_idxs]
 yOr = yOr[horn_idxs]
 zOr = zOr[horn_idxs]
 theta = theta[horn_idxs]
 phi = phi[horn_idxs]
 
-horn_centers_datapath = "/home/joao/Documentos/cosmologia/grasp/horn_centers1/Retangular_results.csv"
+# Pegando centros dos feixes
+horn_centers_datapath = "all_horn_centers.csv"
 horn_centers = pd.read_csv(horn_centers_datapath)
 u_centers = np.array(horn_centers["u"])[horn_idxs]
 v_centers = np.array(horn_centers["v"])[horn_idxs]
 
+# Criando lista de frequencias
 Freq         = [str(f)+" GHz" for f in Fs]
-TaperAngle   = taper_angle(Fs)
-# taper deve ser um valor scalar 
-taper        = -12.0
+TaperAngle   = taper_angle(Fs) 
+taper        = -12.0 	# dB
 
+# Criando csv para resultados desejados
 resultsFileName = jobNamePrefix+"_results.csv"
 resultados      = open(resultsFileName,"tw+")
 resultados.write("Job,x,y,z,theta,phi,I,u,v\n")
