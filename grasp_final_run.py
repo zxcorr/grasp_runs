@@ -30,7 +30,7 @@ d_uv = 0.05
 jobNamePrefix ="Retangular"
 # Path para a pasta que contem o arquivo dentro do usuario no local:
 # GRASP-SE-XX.X.X/bin/grasp-analysis
-realpath = "/scratch/bingo/joao.barretos/GRASP-SE-10.3.0/bin/grasp-analysis batch.gxp "
+realpath = "/home/joao/TICRA/GRASP-SE-10.3.0/bin/grasp-analysis batch.gxp "
 
 
 
@@ -174,34 +174,34 @@ for pol in Polarisation:
 				dwFile=dwD+"//batch"
 				dwFileTor=dwFile+".tor"
 				dwFileGxp=dwFile+".gxp"
-				os.system("cp -r {} {}".format(dwO, dwD)) #shutil.copytree(dwO, dwD)
+				shutil.copytree(dwO, dwD)#os.system("cp -r {} {}".format(dwO, dwD)) #shutil.copytree(dwO, dwD)
 				tor   = open(dwFileTor,"rt")
 				#open and replace TOR file
 				lines = tor.read()
 				tor.close()
-				line0	 ="taper_angle	    : XXX1,"
-				line1	 ="taper	    : XXX1"
+				line0	 ="taper_angle      : XXX1,"
+				line1	 ="taper            : XXX1"
 				line2	 ="frequency_list   : sequence(XXX.X MHz)"
-				line3	 ="origin	    : struct(x: %%%% m, y: %%%% m, z: %%%% m),"
-				line4	 ="x_axis	    : struct(x: $$$$, y: $$$$, z: $$$$),"
-				line5	 ="y_axis	    : struct(x: &&&&, y: &&&&, z: &&&&),"
-				line6	 ="taper_angle	    : XXX2,"
-				line7	 ="taper	    : XXX2,"
+				line3	 ="origin           : struct(x: %%%% m, y: %%%% m, z: %%%% m),"
+				line4	 ="x_axis           : struct(x: $$$$, y: $$$$, z: $$$$),"
+				line5	 ="y_axis           : struct(x: &&&&, y: &&&&, z: &&&&),"
+				line6	 ="taper_angle      : XXX2,"
+				line7	 ="taper            : XXX2,"
 				line8	 ="polarisation     : XXX2"
-				line9	 ="x_range	    : struct(start: -X.X, end: X.X, np: XXX),"
-				line10	 ="y_range	    : struct(start: -X.X, end: X.X, np: XXX),"
+				line9	 ="x_range          : struct(start: -X.X, end: X.X, np: XXX),"
+				line10	 ="y_range          : struct(start: -X.X, end: X.X, np: XXX),"
 				lineN = np.array([line0,line1,line2,line3,line4,line5,line6,line7,line8,line9,line10])
-				newline0 ="taper_angle	    : {},".format(taperA)
-				newline1 ="taper	    : {}".format(taper)
+				newline0 ="taper_angle      : {},".format(taperA)
+				newline1 ="taper            : {}".format(taper)
 				newline2 ="frequency_list   : sequence({})".format(freq)
-				newline3 ="origin	    : struct(x: {} cm, y: {} cm, z: {} cm),".format(ix,iy,iz)
-				newline4 ="x_axis	    : struct(x: {}, y: {}, z: {}),".format(x[0],x[1],x[2])
-				newline5 ="y_axis	    : struct(x: {}, y: {}, z: {}),".format(y[0],y[1],y[2])
-				newline6 ="taper_angle	    : {},".format(taperA)
-				newline7 ="taper	    : {},".format(taper)
+				newline3 ="origin           : struct(x: {} cm, y: {} cm, z: {} cm),".format(ix,iy,iz)
+				newline4 ="x_axis           : struct(x: {}, y: {}, z: {}),".format(x[0],x[1],x[2])
+				newline5 ="y_axis           : struct(x: {}, y: {}, z: {}),".format(y[0],y[1],y[2])
+				newline6 ="taper_angle      : {},".format(taperA)
+				newline7 ="taper            : {},".format(taper)
 				newline8 ="polarisation     : {}".format(pol)
-				newline9 ="x_range	    : struct(start: {}, end: {}, np: {}),".format(u_min,u_max,Npoints)
-				newline10="y_range	    : struct(start: {}, end: {}, np: {}),".format(v_min,v_max,Npoints)
+				newline9 ="x_range          : struct(start: {}, end: {}, np: {}),".format(u_min,u_max,Npoints)
+				newline10="y_range          : struct(start: {}, end: {}, np: {}),".format(v_min,v_max,Npoints)
 				newlineN = np.array([newline0,newline1,newline2,newline3,newline4,newline5,newline6,newline7,newline8,newline9,newline10])
 				for line,newline in zip(lineN,newlineN):
 					lines = lines.replace(line,newline)
